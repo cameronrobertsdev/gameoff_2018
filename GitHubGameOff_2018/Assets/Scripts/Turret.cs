@@ -7,6 +7,9 @@ public class Turret : MonoBehaviour {
     [SerializeField]
     Transform target;
 
+    [SerializeField]
+    string tagForTarget;
+
     bool aware;
 
     [SerializeField]
@@ -37,15 +40,16 @@ public class Turret : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.gameObject.tag == "Player")
+        if (other.transform.gameObject.tag == tagForTarget)
         {
+            target = other.transform;
             aware = true;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.transform.gameObject.tag == "Player")
+        if (other.transform.gameObject.tag == tagForTarget)
         {
             aware = false;
         }

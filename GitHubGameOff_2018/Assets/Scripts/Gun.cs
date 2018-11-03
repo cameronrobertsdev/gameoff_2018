@@ -102,7 +102,8 @@ public class Gun : MonoBehaviour {
             {
                 print("I hit: " + hit.transform.gameObject.name);
                 ParticleSystem hitInst;
-                hitInst = Instantiate(hitParticles,hit.point, new Quaternion(hit.normal.x, hit.normal.y, hit.normal.z, 0)) as ParticleSystem;
+                hitInst = Instantiate(hitParticles,hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal)) as ParticleSystem;
+                print(hit.normal);
                 hitInst.Play();
 
                 if (hit.transform.gameObject.GetComponent<Rigidbody>() != null)

@@ -16,7 +16,7 @@ public class Zombie : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         nav = GetComponent<NavMeshAgent>();
-        playerTrans = GameObject.FindGameObjectWithTag("Player").transform;
+        playerTrans = GameObject.FindGameObjectWithTag("Player1").transform;
         playerVitals = playerTrans.gameObject.GetComponent<PlayerVitals>();
 	}
 	
@@ -29,6 +29,23 @@ public class Zombie : MonoBehaviour {
         }
 		
 	}
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.gameObject.tag == "Player1")
+        {
+            playerTrans = collision.transform;
+            aware = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.transform.gameObject.tag == "Player1")
+        {
+            aware = false;
+        }
+    }
 
     IEnumerator Damage()
     {

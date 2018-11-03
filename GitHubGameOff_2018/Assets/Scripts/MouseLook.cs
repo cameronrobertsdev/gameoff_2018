@@ -26,6 +26,11 @@ public class MouseLook : MonoBehaviour {
 	void Update () {
         mouseX = Input.GetAxis("Mouse X");
         mouseY = Input.GetAxis("Mouse Y");
+
+        if (Input.GetAxisRaw("Fire1") == 1)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
 	}
 
     private void FixedUpdate()
