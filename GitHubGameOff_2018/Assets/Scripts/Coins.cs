@@ -16,10 +16,14 @@ public class Coins : MonoBehaviour {
     [SerializeField]
     AudioClip clip;
 
-    [SerializeField]
     AudioSource audioSource;
 
     GameObject affectedObject;
+
+    private void Start()
+    {
+        audioSource = GameObject.Find("Coin Sound").GetComponent<AudioSource>();
+    }
 
 
     private void OnTriggerEnter(Collider other)

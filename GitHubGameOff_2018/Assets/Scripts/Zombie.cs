@@ -29,7 +29,7 @@ public class Zombie : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         nav = GetComponent<NavMeshAgent>();
-        playerTrans = GameObject.FindGameObjectWithTag("Player1").transform;
+        playerTrans = GameObject.Find("Player_01").transform;
         playerVitals = playerTrans.gameObject.GetComponent<PlayerVitals>();
         StartCoroutine(Damage());
 	}
@@ -39,7 +39,7 @@ public class Zombie : MonoBehaviour {
 
         print(Vector3.Distance(transform.position, playerTrans.position));
 
-        if (aware)
+        if (aware && !died)
         {
             nav.SetDestination(playerTrans.position);
         }
