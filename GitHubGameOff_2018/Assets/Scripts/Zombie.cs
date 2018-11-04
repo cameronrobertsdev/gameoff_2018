@@ -13,24 +13,45 @@ public class Zombie : MonoBehaviour {
 
     PlayerVitals playerVitals;
 
+    public float health;
+
+    bool died;
+
+    [SerializeField]
+    float damage;
+
+    [SerializeField]
+    GameObject[] gibs;
+
+    [SerializeField]
+    ParticleSystem splosion;
+
 	// Use this for initialization
 	void Start () {
         nav = GetComponent<NavMeshAgent>();
         playerTrans = GameObject.FindGameObjectWithTag("Player1").transform;
         playerVitals = playerTrans.gameObject.GetComponent<PlayerVitals>();
+        StartCoroutine(Damage());
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
+        print(Vector3.Distance(transform.position, playerTrans.position));
+
         if (aware)
         {
             nav.SetDestination(playerTrans.position);
         }
+
+        if (health <= 0 && !died)
+        {
+            Die();
+        }
 		
 	}
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.transform.gameObject.tag == "Player1")
         {
@@ -39,24 +60,39 @@ public class Zombie : MonoBehaviour {
         }
     }
 
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.transform.gameObject.tag == "Player1")
-        {
-            aware = false;
-        }
-    }
+    //private void OnCollisionExit(Collision collision)
+    //{
+    //    if (collision.transform.gameObject.tag == "Player1")
+    //    {
+    //        aware = false;
+    //    }
+    //}
 
     IEnumerator Damage()
     {
         while (true)
         {
 
-            if (aware && Vector3.Distance(transform.position, playerTrans.position) < 1)
+            if (aware && Vector3.Distance(transform.position, playerTrans.position) < 1.5f && health > 0)
             {
-                playerVitals.health -= 1;
+                playerVitals.health -= damage;
             }
             yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    void Die()
+    {
+        for (int i = 0; i < gibs.Length; i++)
+        {
+            died = true;
+            GetComponent<Renderer>().enabled = false;
+            GetComponent<Collider>().enabled = false;
+            nav.enabled = false;
+            gibs[i].SetActive(true);
+            gibs[i].transform.SetParent(null);
+            splosion.Play();
+            Destroy(gameObject, splosion.main.duration);
         }
     }
 

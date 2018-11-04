@@ -106,6 +106,11 @@ public class Gun : MonoBehaviour {
                 print(hit.normal);
                 hitInst.Play();
 
+                if (hit.transform.gameObject.tag == "Zombie")
+                {
+                    hit.transform.gameObject.GetComponent<Zombie>().health -= damage;
+                }
+
                 if (hit.transform.gameObject.GetComponent<Rigidbody>() != null)
                 {
                     Rigidbody tempRigid;
