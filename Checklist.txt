@@ -1,10 +1,12 @@
 11/04/18
 
--Import grab script
--Setup Weapon Switching
+-Import grab script -Done
+-Import buuton -Done
+-Import Elevator -Done
+-Setup Weapon Switching -Done
 -Create new pickups
-	-Ammo
-	-Health
--Create killzone object
+	-Ammo -Done
+	-Health -Done
+	-AddToInventory Pickup 
+-Create killzone object -Done
 -Rewrite turret script to allow multiple targets
--

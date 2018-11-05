@@ -98,12 +98,13 @@ public class Gun : MonoBehaviour {
             currentMag -= 1;
             RaycastHit hit;
             cam.Rotate(cam.InverseTransformDirection(cam.right) * kick);
+            muzzleFlash.Play();
             if (Physics.Raycast(cam.position, cam.forward, out hit, range))
             {
-                print("I hit: " + hit.transform.gameObject.name);
+                //print("I hit: " + hit.transform.gameObject.name);
                 ParticleSystem hitInst;
                 hitInst = Instantiate(hitParticles,hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal)) as ParticleSystem;
-                print(hit.normal);
+               // print(hit.normal);
                 hitInst.Play();
 
                 if (hit.transform.gameObject.tag == "Zombie")
@@ -170,7 +171,7 @@ public class Gun : MonoBehaviour {
                             tempRigid.AddForceAtPosition(-hit.normal * 1000, hit.point);
                         }
 
-                        print("I hit: " + hit.transform.gameObject.name);
+                        //print("I hit: " + hit.transform.gameObject.name);
                         ParticleSystem hitInst;
                         hitInst = Instantiate(hitParticles, hit.point, new Quaternion(hit.normal.x, hit.normal.y, hit.normal.z, 0)) as ParticleSystem;
                         hitInst.Play();
@@ -184,7 +185,7 @@ public class Gun : MonoBehaviour {
 
     IEnumerator Reload()
     {
-        print("Reload was called.");
+        //print("Reload was called.");
         yield return new WaitForSeconds(reloadTime);
         totalAmmo -= magSize - currentMag;
         currentMag = magSize;

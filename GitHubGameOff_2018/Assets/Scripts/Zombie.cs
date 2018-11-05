@@ -37,7 +37,7 @@ public class Zombie : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        print(Vector3.Distance(transform.position, playerTrans.position));
+        //print(Vector3.Distance(transform.position, playerTrans.position));
 
         if (aware && !died)
         {

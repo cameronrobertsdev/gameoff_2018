@@ -31,6 +31,17 @@ public class Move : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+       // print("Player Velocity = " + rigid.velocity.magnitude.ToString());
+
+
+        if (rigid.velocity.magnitude > maxVelocity * 10)
+        {
+            rigid.drag = 10000;
+        }
+        else
+        {
+            rigid.drag = 0;
+        }
 
         if (gameObject.tag == "Player1")
         {

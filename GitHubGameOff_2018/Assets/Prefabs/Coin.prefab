@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23741150914104952}
   - component: {fileID: 136877790245677024}
   - component: {fileID: 114994668616251454}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Coin
   m_TagString: Coin
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 4345935454782354}
   - component: {fileID: 198805110979208392}
   - component: {fileID: 199370136968708174}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particles: {fileID: 198805110979208392}
   clip: {fileID: 8300000, guid: a2d0138ef38f6a446a8428608a4f3c5c, type: 3}
-  audioSource: {fileID: 0}
 --- !u!136 &136877790245677024
 CapsuleCollider:
   m_ObjectHideFlags: 1
