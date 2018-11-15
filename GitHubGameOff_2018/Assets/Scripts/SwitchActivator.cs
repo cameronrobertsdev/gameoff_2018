@@ -26,7 +26,7 @@ public class SwitchActivator : MonoBehaviour {
         {
             if (Physics.Raycast(ray, out hit))
             {
-                //print(hit.transform.name);
+                print(hit.transform.name);
                 if (hit.transform.gameObject.tag == "Switch")
                 {
                     HitSwitch(hit.transform.gameObject);

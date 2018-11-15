@@ -23,6 +23,10 @@ public class Move : MonoBehaviour {
 
     float jump;
 
+    bool onLift;
+
+    Rigidbody liftRigid;
+
 	// Use this for initialization
 	void Start () {
         rigid = GetComponent<Rigidbody>();
@@ -63,6 +67,7 @@ public class Move : MonoBehaviour {
             print("grounded");
 
 
+
         }
         else
         {
@@ -72,11 +77,34 @@ public class Move : MonoBehaviour {
        
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.gameObject.name == "Lift")
+        {
+            onLift = true;
+
+            liftRigid = collision.transform.gameObject.GetComponent<Rigidbody>();
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.transform.gameObject.name == "Lift")
+        {
+            onLift = false;
+        }
+    }
+
     private void FixedUpdate()
     {
         if (grounded && jump == 1)
         {
             rigid.velocity = new Vector3(rigid.velocity.x, jumpStrength, rigid.velocity.z);
+        }
+
+        if (onLift)
+        {
+            rigid.velocity = rigid.velocity + liftRigid.velocity;
         }
 
         if (forward > 0.1f || forward < -0.1)
@@ -113,20 +141,20 @@ public class Move : MonoBehaviour {
             rigid.AddForce(transform.forward * -transform.InverseTransformVector(rigid.velocity).z * 10);
         }
 
-        if (transform.InverseTransformVector(rigid.velocity).z > maxVelocity)
+        if (transform.InverseTransformVector(rigid.velocity).z > maxVelocity && !onLift)
         {
             rigid.AddForce(transform.forward * -transform.InverseTransformVector(rigid.velocity).z * 10);
         }
-        if (transform.InverseTransformVector(rigid.velocity).z < -maxVelocity)
+        if (transform.InverseTransformVector(rigid.velocity).z < -maxVelocity && !onLift)
         {
             rigid.AddForce(transform.forward * -transform.InverseTransformVector(rigid.velocity).z * 10);
         }
 
-        if (transform.InverseTransformVector(rigid.velocity).x > maxVelocity)
+        if (transform.InverseTransformVector(rigid.velocity).x > maxVelocity && !onLift)
         {
             rigid.AddForce(transform.right * -transform.InverseTransformVector(rigid.velocity).x * 10);
         }
-        if (transform.InverseTransformVector(rigid.velocity).x < -maxVelocity)
+        if (transform.InverseTransformVector(rigid.velocity).x < -maxVelocity && !onLift)
         {
             rigid.AddForce(transform.right * -transform.InverseTransformVector(rigid.velocity).x * 10);
         }

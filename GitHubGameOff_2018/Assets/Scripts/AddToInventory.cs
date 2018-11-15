@@ -18,6 +18,11 @@ public class AddToInventory : MonoBehaviour {
 
     Camera cam;
 
+    private void Start()
+    {
+        cam = Camera.main;
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -39,12 +44,14 @@ public class AddToInventory : MonoBehaviour {
 
         GetComponent<Renderer>().enabled = false;
 
+        Instantiate(objectToAdd);
+
         objectToAdd.transform.parent = cam.transform;
 
         objectToAdd.transform.position = cam.transform.GetChild(0).transform.position;
         objectToAdd.transform.rotation = cam.transform.GetChild(0).transform.rotation;
 
-
+        Destroy(gameObject);
 
 
     }
